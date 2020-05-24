@@ -1,0 +1,11 @@
+// 既定の設定を上書きするには、このファイル内に設定を挿入します
+{
+  "html.format.wrapLineLength": 0,
+  "editor.insertSpaces": false,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "typescript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "files.exclude": {},
+  "editor.formatOnSave": true,
+  "files.autoSave": "onFocusChange",
+  "typescript.format.semicolons": "insert",
+}
