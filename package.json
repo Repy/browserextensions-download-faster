@@ -12,7 +12,8 @@
     "webpack-cli": "^3.3.11"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ci": "npm ci",
+    "build": "webpack --config webpack.config.js"
   },
   "author": "",
   "license": "MIT"
