@@ -1,0 +1,46 @@
+name: sign
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Build Firefox"
+      run: |
+        npm ci
+        npm run build
+        cd dist
+        npx web-ext sign --channel=unlisted --api-key ${MOZILLA_API_KEY} --api-secret ${MOZILLA_API_SECRET}
+        cd ..
+        mv ./dist/web-ext-artifacts/*.xpi ./dist/web-ext-artifacts/firefox.xpi
+      env:
+        MOZILLA_API_KEY: ${{ secrets.MOZILLA_API_KEY }}
+        MOZILLA_API_SECRET: ${{ secrets.MOZILLA_API_SECRET }}
+    - name: "Create Release"
+      id: "create_release"
+      uses: "actions/create-release@v1"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      with:
+        tag_name: "${{ github.ref }}"
+        release_name: "Release ${{ github.ref }}"
+        body: ""
+        draft: false
+        prerelease: false
+    - name: "Release Firefox"
+      uses: "actions/upload-release-asset@v1"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      with:
+        upload_url: "${{ steps.create_release.outputs.upload_url }}"
+        asset_path: "./dist/web-ext-artifacts/firefox.xpi"
+        asset_name: "firefox.xpi"
+        asset_content_type: "application/x-xpinstall"
