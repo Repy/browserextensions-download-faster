@@ -1,4 +1,4 @@
-name: sign
+name: master
 
 on:
   push:
