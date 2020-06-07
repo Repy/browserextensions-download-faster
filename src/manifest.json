@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "0.2.6",
+  "version": "0.2.9",
   "author": "Repy",
   "description": "Download Faster",
   "name": "Download Faster",
@@ -15,7 +15,6 @@
     "120": "icon-120.png",
     "128": "icon-128.png"
   },
-  "options_page": "frontend/options.html",
   "options_ui": {
     "page": "frontend/options.html",
     "chrome_style": false,
