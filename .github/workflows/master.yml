@@ -20,10 +20,12 @@ jobs:
       run: |
         npm ci
         npm run build
+    # バージョン取得
     - uses: "repy-actions/chrome-extensions-version@master"
       id: "check_version"
       with:
         manifest-path: 'src/manifest.json'
+    # 同じバージョンのリリースがあるかチェック
     - uses: "actions/github-script@v2"
       id: "check_release"
       continue-on-error: true
@@ -36,7 +38,7 @@ jobs:
             tag: "v${{ steps.check_version.outputs.version }}",
           });
     - name: "Deploy Firefox"
-      if: "steps.check_release.outcome == 'failure'"
+      if: "steps.check_release.outcome == 'failure'" # 同じバージョンのリリースがないとき実行
       run: |
         cd dist
         npx web-ext sign --channel=unlisted --api-key ${MOZILLA_API_KEY} --api-secret ${MOZILLA_API_SECRET}
@@ -46,7 +48,7 @@ jobs:
         MOZILLA_API_KEY: ${{ secrets.MOZILLA_API_KEY }}
         MOZILLA_API_SECRET: ${{ secrets.MOZILLA_API_SECRET }}
     - name: "Create Release"
-      if: "steps.check_release.outcome == 'failure'"
+      if: "steps.check_release.outcome == 'failure'" # 同じバージョンのリリースがないとき実行
       id: "create_release"
       uses: "actions/create-release@v1"
       env:
@@ -58,7 +60,7 @@ jobs:
         draft: false
         prerelease: false
     - name: "Release Firefox"
-      if: "steps.check_release.outcome == 'failure'"
+      if: "steps.check_release.outcome == 'failure'" # 同じバージョンのリリースがないとき実行
       uses: "actions/upload-release-asset@v1"
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
