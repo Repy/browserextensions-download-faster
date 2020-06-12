@@ -1,4 +1,4 @@
-import "../lib/WebExtentions";
+import "../lib/WebExtensions";
 import { BackGroundInterface, Config, Status, FileInterface } from "./interface";
 import { ClassEventTarget } from "../lib/ClassEventTarget";
 import { EventType, ProgressEvent } from "./event";

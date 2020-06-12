@@ -1,4 +1,4 @@
-import "../lib/WebExtentions";
+import "../lib/WebExtensions";
 import "../background/interface";
 import { ProgressEvent } from "../background/event";
 
