@@ -4,7 +4,7 @@
   "description": "",
   "dependencies": {},
   "devDependencies": {
-    "@types/chrome": "^0.0.114",
+    "@types/chrome": "^0.0.149",
     "copy-webpack-plugin": "^6.0.2",
     "ts-loader": "^7.0.4",
     "typescript": "^3.9.5",
